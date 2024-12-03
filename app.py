@@ -39,6 +39,7 @@ def module_details():
 
     # Generate details for the module using OpenAI
     generated_content = generate_more_info(module_name)
+    print(generated_content)
     generated_content = markdown.markdown(generated_content, extensions=[
                                           'fenced_code', 'codehilite'])
 

@@ -36,6 +36,16 @@ def generate_course(topic, language):
     return modules
 
 
+def generate_more_info(prompt):
+    print(f"Getting more info for {prompt}: ")
+    new_prompt = (
+        f"Give an explanation of {
+            prompt}."
+        f"Include coding examples.")
+    more_info = get_openai_response(new_prompt)
+    return more_info
+
+
 def get_openai_response(prompt):
     try:
         # Send the request to OpenAI
@@ -48,7 +58,6 @@ def get_openai_response(prompt):
                     "content": prompt
                 }
             ],
-            max_tokens=500,
             temperature=0.7
         )
 
@@ -65,13 +74,3 @@ def get_openai_response(prompt):
         # Handle rate limit error (we recommend using exponential backoff)
         print(f"OpenAI API request exceeded rate limit: {e}")
         pass
-
-
-def generate_more_info(prompt):
-    print(f"Getting more info for {prompt}: ")
-    new_prompt = (
-        f"Give an in-depth explanation of {
-            prompt}."
-        f"Only return a list, not numbered, with brief text explanations and coding examples.")
-    more_info = get_openai_response(new_prompt)
-    return more_info
