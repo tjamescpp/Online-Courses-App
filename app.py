@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from generate_content import generate_course
+from generate_content import generate_course, generate_more_info
 from dotenv import load_dotenv
 import markdown
 
@@ -17,8 +17,8 @@ def home():
 def course():
     topic = request.form.get('topic')
     language = request.form.get('language')
-    course_modules = generate_course(topic, language)
-    modules = [markdown.markdown(module) for module in course_modules]
+    modules = generate_course(topic, language)
+    modules = [markdown.markdown(module) for module in modules]
     # content = markdown.markdown(course_description)
     progress = 0  # Initial progress is 0%
 
@@ -28,6 +28,22 @@ def course():
         modules=modules,
         progress=progress
     )
+
+
+@app.route('/module-details', methods=['POST'])
+def module_details():
+    module_name = request.form.get('module')
+
+    if not module_name:
+        return "Error: No module provided", 400
+
+    # Generate details for the module using OpenAI
+    generated_content = generate_more_info(module_name)
+    generated_content = markdown.markdown(generated_content, extensions=[
+                                          'fenced_code', 'codehilite'])
+
+    # Render the details page with the generated content
+    return render_template('module_details.html', content=generated_content)
 
 
 @app.route('/lesson/<int:lesson_id>')

@@ -9,21 +9,22 @@
 <body>
     <div class="container my-5">
         <!-- Course Title -->
-        <h1 class="text-center mb-4">{{ course_title }}</h1>
-        <p class="text-center mb-5">Follow the lessons step by step to complete this course.</p>
-
-        <!-- Progress Bar -->
-        <div class="progress mb-4">
-            <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
-                {{ progress }}%
-            </div>
-        </div>
+        <h1 class="text-center mb-4 display-3">{{ course_title }}</h1>
+        <p class="text-center mb-5 fs-4">Follow the modules below to learn more with CourseAI.</p>
 
         <!-- Module List -->
         <div class="list-group">
-            <div class="markdown-content">
+            <div class="markdown-content fs-4">
                 {% for module in modules %}
-                    <strong>Module:</strong> {{ module | safe}}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="fs-1">{{ module | safe }}</p>
+                            <form action="{{ url_for('module_details') }}" method="POST">
+                                <input type="hidden" name="module" value="{{ module }}">
+                                <button class="btn btn-primary" type="submit">Learn More</button>
+                            </form>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
