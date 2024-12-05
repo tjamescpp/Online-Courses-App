@@ -40,9 +40,9 @@ def generate_course(topic, language):
 def generate_more_info(prompt):
     print(f"Getting more info for {prompt}: ")
     new_prompt = (
-        f"Give an explanation of {
-            prompt}."
-        f"Include coding examples.")
+        f"Give an explanation of {prompt}."
+        f"Include coding examples."
+    )
     more_info = get_openai_response(new_prompt)
     return more_info
 
