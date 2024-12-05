@@ -21,10 +21,10 @@ def generate_course(topic, language):
     """
     prompt = (
         f"A person wants to learn about {topic} in {language}."
-        f"Act as an instructor designing an online course, breakdown the course about {
-            topic}"
-        f"in {language} into a bullet pointed list of modules with a brief description for each one."
-        f"Only list the modules, add bold headers and normal text description as a bullet point."
+        f"Act as an instructor designing an online course."
+        f"Breakdown the course about {topic} in {language} "
+        f"into a bullet pointed list of modules with a brief description for each one."
+        f"Only list the modules with bold headers and one sentence of normal text description."
     )
 
     # Extract the text response
