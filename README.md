@@ -1,2 +1,2 @@
 # Online-Courses-App
- AI online courses web application
+ Web application that uses AI to create online mini-courses for learning computer science.
