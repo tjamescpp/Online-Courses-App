@@ -5,7 +5,7 @@ from openai import OpenAI
 # Load API key from environment variables
 api_key = os.environ.get("OPENAI_API_KEY")
 
-client = OpenAI(api_key)
+client = OpenAI()
 
 
 def generate_course(topic, language):
