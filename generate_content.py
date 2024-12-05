@@ -20,6 +20,8 @@ def generate_course(topic, language):
     Returns:
         list: A list of lessons for the course.
     """
+
+    # Persona Pattern
     prompt = (
         f"A person wants to learn about {topic} in {language}."
         f"Act as an instructor designing an online course."
@@ -38,11 +40,13 @@ def generate_course(topic, language):
     return modules
 
 
-def generate_more_info(prompt):
-    print(f"Getting more info for {prompt}: ")
+def generate_more_info(module):
+    # Audience pattern
     new_prompt = (
-        f"Give an explanation of {prompt}."
+        f"Explain {module} to me."
+        f"Assume that I am a student."
         f"Include coding examples."
+        f"Don't include responses such as 'Certainly!'."
     )
     more_info = get_openai_response(new_prompt)
     return more_info
