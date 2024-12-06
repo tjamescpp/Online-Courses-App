@@ -4,8 +4,12 @@ from openai import OpenAI
 from dotenv import load_dotenv
 
 # Load API key from environment variables
-# api_key = os.environ.get("OPENAI_API_KEY")
-# load_dotenv()
+if os.getenv('RENDER'):  # RENDER is a predefined variable in Render's environment
+    api_key = os.getenv('OPENAI_API_KEY')  # Automatically available on Render
+else:
+    load_dotenv()  # Load from .env for local development
+    api_key = os.getenv('OPENAI_API_KEY')
+
 client = OpenAI()
 
 
