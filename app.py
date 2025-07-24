@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from generate_content import generate_course, generate_more_info
+from .generate_content import generate_course, generate_more_info
 from dotenv import load_dotenv
 import markdown
 
