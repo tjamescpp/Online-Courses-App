@@ -1,10 +1,16 @@
+import os
 import openai
 from openai import OpenAI
-client = OpenAI()
-# import os
+from dotenv import load_dotenv
 
 # Load API key from environment variables
-# api_key = os.getenv("OPENAI_API_KEY")
+if os.getenv('RENDER'):  # RENDER is a predefined variable in Render's environment
+    api_key = os.getenv('OPENAI_API_KEY')  # Automatically available on Render
+else:
+    load_dotenv()  # Load from .env for local development
+    api_key = os.getenv('OPENAI_API_KEY')
+
+client = OpenAI()
 
 
 def generate_course(topic, language):
@@ -18,12 +24,14 @@ def generate_course(topic, language):
     Returns:
         list: A list of lessons for the course.
     """
+
+    # Persona Pattern
     prompt = (
         f"A person wants to learn about {topic} in {language}."
-        f"Act as an instructor designing an online course, breakdown the course about {
-            topic}"
-        f"in {language} into a bullet pointed list of modules with a brief description for each one."
-        f"Only list the modules, add bold headers and normal text description as a bullet point."
+        f"Act as an instructor designing an online course."
+        f"Breakdown the course about {topic} in {language} "
+        f"into a bullet pointed list of modules with a brief description for each one."
+        f"Only list the modules with bold headers and one sentence of normal text description."
     )
 
     # Extract the text response
@@ -36,12 +44,14 @@ def generate_course(topic, language):
     return modules
 
 
-def generate_more_info(prompt):
-    print(f"Getting more info for {prompt}: ")
+def generate_more_info(module):
+    # Audience pattern
     new_prompt = (
-        f"Give an explanation of {
-            prompt}."
-        f"Include coding examples.")
+        f"Explain {module} to me."
+        f"Assume that I am a student."
+        f"Include coding examples."
+        f"Don't include responses such as 'Certainly!'."
+    )
     more_info = get_openai_response(new_prompt)
     return more_info
 
